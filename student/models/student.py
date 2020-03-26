@@ -30,7 +30,6 @@ class Student(models.Model):
             self.display_age = (date.today() - self.birth_date) // timedelta(365)
         #days_in_year = 365.2425         
         #self.display_age = int((date.today() - self.birth_date).days / days_in_year)
-                  
 
     name = fields.Char(string="Student Name")
     birth_date = fields.Date()
@@ -47,5 +46,21 @@ class Student(models.Model):
     percentage = fields.Float(string='12th Grade Percentage', compute='compute_percentage')
     display_name = fields.Char()
     display_age = fields.Integer(compute='compute_age')
+    clg_id = fields.Many2one('student.college')
+    clg_line_id = fields.One2many('student.college.lines','student_id')
+    description = fields.Char()
 
 
+class College(models.Model):
+    _name = 'student.college'
+
+    name = fields.Char(string='College Name')
+
+
+class College_detail(models.Model):
+    _name = 'student.college.lines'
+
+    name = fields.Char(string='College Name')
+    clg_address = fields.Char()
+    district = fields.Char()
+    student_id = fields.Many2one('student.information')
