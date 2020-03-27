@@ -49,6 +49,7 @@ class Student(models.Model):
     clg_id = fields.Many2one('student.college')
     clg_line_id = fields.One2many('student.college.lines','student_id')
     description = fields.Char()
+    student_subject = fields.Many2many('student.subject')
 
 
 class College(models.Model):
@@ -64,3 +65,8 @@ class College_detail(models.Model):
     clg_address = fields.Char()
     district = fields.Char()
     student_id = fields.Many2one('student.information')
+
+class Subject(models.Model):
+    _name = 'student.subject'
+
+    name = fields.Char()

@@ -27,6 +27,9 @@
                             <field name="percentage"/>
                         </group>
                         <group>
+                            <field name="student_subject" widget='many2many_tags' string="Subject"/>
+                        </group>
+                        <group>
                             <field name="clg_id"/>
                         </group>                       
 			        </group>
