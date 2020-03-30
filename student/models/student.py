@@ -26,8 +26,9 @@ class Student(models.Model):
 
     @api.depends('birth_date')
     def compute_age(self):
-        if self.birth_date is not False:
-            self.display_age = (date.today() - self.birth_date) // timedelta(365)
+        for i in self:
+            if i.birth_date is not False:
+                i.display_age = (date.today() - i.birth_date) // timedelta(365)
         #days_in_year = 365.2425         
         #self.display_age = int((date.today() - self.birth_date).days / days_in_year)
 
@@ -43,7 +44,7 @@ class Student(models.Model):
     sports_enthusiastic = fields.Boolean(string='Sports Enthusiastic?')
     sports_membership = fields.Selection([('game_1','Table Tennis'),('game_2','Cricket')])
     sem_strt = fields.Datetime(string='Starting Of Semester')
-    percentage = fields.Float(string='12th Grade Percentage', compute='compute_percentage')
+    percentage = fields.Float(string='12th Grade Percentage', compute='compute_percentage', store=True)
     display_name = fields.Char()
     display_age = fields.Integer(compute='compute_age')
     clg_id = fields.Many2one('student.college')
