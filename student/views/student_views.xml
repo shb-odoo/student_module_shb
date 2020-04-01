@@ -10,6 +10,7 @@
         			<group>
 	        			<group>
 			        		<field name="name"/>
+                            <field name="gender"/>
 			        		<field name="birth_date"/>
                             <field name="sports_enthusiastic"/>
                             <field name="sports_membership" attrs="{'invisible' : [('sports_enthusiastic','=', False)]}"/>
@@ -101,10 +102,37 @@
         </field>
     </record>
 
+    <record id="student_search" model="ir.ui.view"> 
+        <field name="name">student.search</field>
+        <field name="model">student.information</field>
+        <field name = "arch" type ="xml">
+            <search string='Search Students'>
+                <field name="name" string='Test' filter_domain="['|', ('name', 'ilike', self), ('clg_id', 'ilike', self)]"/>
+                <!-- <filter name='clg_name' string='College' domain="[('clg_id','ilike',self)]"/> -->
+                <filter name='male' string='Male' domain="[('gender','=','male')]"/>
+                <filter name='female' string="Female" domain="[('gender', '=' , 'female')]"/>
+                <filter name='percentage' string='Percentage' domain="[('percentage','>=','70')]"/>
+                <group>
+                    <filter name='gender' context="{'group_by':'gender'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="student_calendar" model="ir.ui.view"> 
+        <field name="name">student.calendar</field>
+        <field name="model">student.information</field>
+        <field name = "arch" type ="xml">
+            <calendar date_start="sem_strt" color='name' mode='month' quick_add="False" > 
+                <field name="name"/>
+            </calendar>
+        </field>
+    </record>
+
 	<record id="student_information_action" model="ir.actions.act_window">
         <field name="name">Student</field>
         <field name="res_model">student.information</field>
-        <field name="view_mode">list,form,kanban,graph</field>
+        <field name="view_mode">list,form,kanban,graph,calendar</field>
     </record>
 
     <menuitem name="Student Information" id="student_information_menuitem" action="student_information_action"/>

@@ -47,6 +47,7 @@ class Student(models.Model):
     percentage = fields.Float(string='12th Grade Percentage', compute='compute_percentage', store=True)
     display_name = fields.Char()
     display_age = fields.Integer(compute='compute_age')
+    gender = fields.Selection([("male","Male"),("female","Female")])
     clg_id = fields.Many2one('student.college')
     clg_line_id = fields.One2many('student.college.lines','student_id')
     description = fields.Char()
