@@ -72,3 +72,15 @@ class Subject(models.Model):
     _name = 'student.subject'
 
     name = fields.Char()
+
+
+class StudentInherit(models.Model):
+    _inherit ='student.information' 
+
+    qualification = fields.Char(string='Qualification')  
+    hobby = fields.Many2many('student.hobby')
+
+class StudentHobby(models.Model):
+    _name = 'student.hobby'     
+
+    name = fields.Char(string='Hobby')

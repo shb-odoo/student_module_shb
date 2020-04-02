@@ -129,6 +129,20 @@
         </field>
     </record>
 
+    <record id="student_inherit" model="ir.ui.view"> 
+        <field name="name">student.inherit</field>
+        <field name="model">student.information</field>  
+        <field name="inherit_id" ref="student.student_form"/>  
+        <field name = "arch" type ="xml">        
+            <field name="student_subject" position='after'>
+                <field name="qualification"/>
+            </field>    
+            <field name='qualification' position='after'>
+                <field name='hobby' widget='many2many_tags' string='Hobby'/>
+            </field>
+        </field>    
+    </record>
+
 	<record id="student_information_action" model="ir.actions.act_window">
         <field name="name">Student</field>
         <field name="res_model">student.information</field>
